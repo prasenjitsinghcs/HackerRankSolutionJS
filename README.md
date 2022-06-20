@@ -1,1 +1,1 @@
-# HackerRankSolutionJS
+## Calculator Module
