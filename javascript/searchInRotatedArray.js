@@ -3,7 +3,7 @@
  * @param {number} target
  * @return {number}
  */
- var search = function(nums, target) {
+var search = function (nums, target) {
     var low = 0;
     var high = nums.length - 1;
 
@@ -12,7 +12,7 @@
         if (target === nums[i]) {
             return i;
         }
-        i++; 
+        i++;
     }
 
     low = i + 1;
@@ -21,7 +21,7 @@
 };
 
 function getMid(nums, low, high, target) {
-    var mi = Math.floor( (high - low) / 2  ) + low;
+    var mi = Math.floor((high - low) / 2) + low;
 
     var mie = nums[mi];
 
