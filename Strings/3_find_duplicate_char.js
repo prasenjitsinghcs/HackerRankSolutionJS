@@ -26,6 +26,7 @@ function duplicates(str) {
 
     var keys = Object.keys(map);
 
+    // Print the dulicate charcters count
     keys.forEach(key => {
         if (map[key] > 1)
             console.log(`${key} => count - ${map[key]}`);
@@ -34,4 +35,6 @@ function duplicates(str) {
 
 
 var input = 'prasenjitsinghcs';
+console.log("Input: ", input);
+console.log("Output: ");
 duplicates(input);
