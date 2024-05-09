@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>
+        Live Agent
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        var origTitle, animatedTitle, timer;
+        origTitle = document.title;
+        
+        // counter for messages when user is away from tab
+        var messageCount = 0;
+
+        // simulate messages comming to the websdk
+        setInterval(function () {
+            if (document.hasFocus() == false) {
+                messageCount++;
+            }
+            const node = document.createElement("li");
+            node.style = "margin-left:20px";
+            const textnode = document.createTextNode(`Agent Message`);
+            node.appendChild(textnode);
+            document.getElementById("messages").appendChild(node);
+        }, 3000);
+
+        window.animateTitle = function (newTitle) {
+            var currentState = false;
+            origTitle = document.title; // save original title
+            animatedTitle = "Agent Messages";
+
+            timer = setInterval(startAnimation, 2000);
+
+            function startAnimation() {
+                if (messageCount > 0) {
+                    // animate between the original and the new title
+                    document.title = currentState ? origTitle : `(${messageCount}) ` + animatedTitle;
+                    currentState = !currentState;
+                }
+            }
+        }
+
+        function restoreTitle() {
+            messageCount = 0;
+            clearInterval(timer);
+            document.title = origTitle; // restore original title
+        }
+
+        // Change page title on blur
+        $(window).blur(function () {
+            animateTitle();
+        });
+
+        // Change page title back on focus
+        $(window).focus(function () {
+            restoreTitle();
+        });
+
+        if (!document.hasFocus()) {
+            window.animateTitle();
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Example to display tab notification when window is out of focus</h1> 
+    <h2>Live Agent Notification</h2>
+    <ol id="messages" style="border:1px solid;padding:10px;overflow:hidden;height:200px; scroll-behavior:auto;overflow: scroll;"></ol>
+</body>
+
+</html>

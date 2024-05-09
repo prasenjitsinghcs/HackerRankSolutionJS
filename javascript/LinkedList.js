@@ -37,13 +37,17 @@ class LinkedList {
     }
 
     displayList() {
+        if (this.head === null) {
+            console.log('List is empty');
+            return;
+        }
         var nextNode = this.head;
         var str = '';
         while(nextNode !== null) {
-            str += ' -> ' + nextNode.data;
+            str += nextNode.data + " -> ";
             nextNode = nextNode.next;
         }
-        console.log(str);
+        console.log(str + "NULL");
     }
 
     deleteFirst() {
@@ -78,8 +82,39 @@ class LinkedList {
 
     }
 
+    reverse() {
+        if (this.head === null) {
+            console.log('List is empty');
+            return;
+        }
+        var previousNode = null;
+        var currentNode  = this.head;
+        var nextNode     = currentNode.next;
+
+        while(currentNode != null) {
+            nextNode = currentNode.next;
+            currentNode.next = previousNode;
+            previousNode = currentNode;
+            currentNode  = nextNode;
+        }
+        this.head = previousNode;
+    }
+
     getSize() {
         console.log('size = ' + this.size);
         return this.size;
     }
 }
+
+var list = new LinkedList();
+
+var items = [];
+
+items.forEach(item => list.addFirst(item));
+list.displayList();
+console.log('Reverse Linked List');
+list.reverse();
+list.displayList();
+
+
+
