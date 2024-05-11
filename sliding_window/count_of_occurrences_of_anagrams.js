@@ -93,21 +93,6 @@ function countAnagramsSlidingWindow(text, word) {
 
     count = Object.keys(map).length;
 
-    while(j < k) {
-        if (map[text[j]] != undefined) {
-            map[text[j]] = map[text[j]] - 1;
-        }
-        if (map[text[j]] === 0) {
-            count--;
-        }
-        j++;
-    }
-
-    if (count === 0) {
-        console.log(text.substr(i, k));
-        total++;
-    }
-
     while(j < text.length) {
         if (map[text[j]] != undefined) {
             map[text[j]] = map[text[j]] - 1;
@@ -116,24 +101,27 @@ function countAnagramsSlidingWindow(text, word) {
             count--;
         }
 
-        if (map[text[i]] !== undefined) {
-            map[text[i]] = map[text[i]] + 1;
-        }
+        if (j - i + 1 < k) {
+            j++;     
+        } else if (j - i + 1 === k) {
+            if (count === 0) {
+                console.log(text.substr(i, k));
+                total++;
+            }  
 
-        if (map[text[i]] > 0) {
-            count++;
-        }
+            if (map[text[i]] !== undefined) {
+                map[text[i]] = map[text[i]] + 1;
+            }
 
-        if (count === 0) {
-            console.log(text.substr(i + 1, k));
-            total++;
-        }
-        i++;
-        j++;
+            if (map[text[i]] > 0) {
+                count++;
+            }
+            i++;
+            j++;
+        }   
     }
 
     return total;
-
 }
 
 console.log(`\n\nSliding Window Approach: `)

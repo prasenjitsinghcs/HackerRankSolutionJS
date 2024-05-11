@@ -55,16 +55,6 @@ function printKMaxSlidingWindow(arr, k) {
     const ans = [];
     let i = 0, j = 0, list = [];
     
-    while(j < k) {
-        while(list.length != 0 && list[0] < arr[j]) {
-            list.shift();
-        }
-        list.push(arr[j]);
-        j++;
-    }
-
-    ans.push(list[0]);
-
     while(j < arr.length) {
         while(list.length != 0 && list[0] < arr[j]) {
             list.shift();
@@ -72,14 +62,19 @@ function printKMaxSlidingWindow(arr, k) {
 
         list.push(arr[j]);
 
-        if (list[0] === arr[i]) {
-            list.shift();
+        if (j - i + 1 < k) {
+            j++;
+        } else if (j - i + 1 === k) {
+            ans.push(list[0]);
+
+            if (list[0] === arr[i]) {
+                list.shift();
+            }
+
+            i++;
+            j++;
+
         }
-
-        ans.push(list[0]);
-
-        i++;
-        j++;
     }
     
     return ans;

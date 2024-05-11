@@ -42,19 +42,21 @@ console.log(`Max Sum = ${output}`);
 function getMaxSumSubArr(arr, k) {
     let i = 0, j = 0, sum = 0, max = Number.MIN_VALUE;
 
-    while(j < k) {
-       sum += arr[j]; 
-       j++;
-    }
-
-    max = Math.max(sum, max);
-
     while(j < arr.length) {
-        sum = sum - arr[i] + arr[j];
-        max = Math.max(sum, max);
-        i++;
-        j++;
+        sum = sum + arr[j];
+
+        if (j - i + 1 < k) {
+            j++;
+        } else if (j - i + 1 === k) {
+            max = Math.max(sum, max);
+
+            sum = sum - arr[i];
+            i++;
+            j++;
+
+        }
     }
+    
     return max;
 }
 

@@ -55,36 +55,26 @@ displayFirstNegative(arr, k);
 function getFirstNegative(arr, k) {
     let i = 0, j = 0, list = [];
 
-    while(j < k) {
-        if (arr[j] < 0) {
-            list.push(arr[j]);
-        }
-        j++;
-    }
-
-    if (list.length > 0) {
-        console.log(list[0]);
-    } else {
-        console.log(0);
-    }
-
     while(j < arr.length) {
         if (arr[j] < 0) {
             list.push(arr[j]);
         }
 
-        if (arr[i] === list[0]) {
-            list.shift();
-        }
+        if (j - i + 1 < k) {
+            j++;
+        } else if (j - i + 1 === k) {
+            if (list.length > 0) {
+                console.log(list[0]);
+            } else {
+                console.log(0);
+            }
 
-        if (list.length > 0) {
-            console.log(list[0]);
-        } else {
-            console.log(0);
+            if (arr[i] === list[0]) {
+                list.shift();
+            }
+            i++;
+            j++;
         }
-
-        i++;
-        j++;
     }
     
 }
