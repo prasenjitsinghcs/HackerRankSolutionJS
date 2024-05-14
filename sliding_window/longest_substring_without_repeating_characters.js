@@ -14,11 +14,52 @@
 var str = "ABCDEFGABEF";
 
 /**
+ * Approach 1: Brute force approach
+ */
+function solution(str) {
+    let max = -1;
+    let low = 0, high = 0;
+    for (let i = 0; i < str.length; i++) {
+        for (let j = i; j < str.length; j++) {
+            const distinct = new Set();
+            let index = i;
+            while(index <= j) {
+                distinct.add(str[index]);
+                index++;
+            }
+
+            if (distinct.size === j - i + 1) {
+                if (j - i + 1 > max) {
+                    low = i;
+                    high = j;
+                    max = j - i + 1;
+                }
+            }
+        }
+    }
+
+    console.log("Sub String: " + str.substr(low, high - low + 1));
+
+    return max;
+}
+
+console.log("Brute Force Approach");
+console.log(`Input Str: ${str}`);
+var out = solution(str);
+console.log(`Output: ${out}`);
+
+/**
+ * Time Complexity: O(n ^ 3)
+ * Auxiliary Space: O(n)
+ */
+
+/**
  * Approach 2: Sliding Window
  */
 
 function getLongestSubStringWithoutRepeatingChar(str) {
     let i = 0, j = 0, map = {}, max = Number.MIN_VALUE;
+    let low = 0, high = 0;
 
     while(j < str.length) {
         if (map[str[j]] !== undefined) {
@@ -30,7 +71,11 @@ function getLongestSubStringWithoutRepeatingChar(str) {
         size = Object.keys(map).length;
 
         if (size === j - i + 1) {
-            max = Math.max(max, j - i + 1);
+            if (j - i + 1 > max) {
+                low = i;
+                high = j;
+                max = j - i + 1;
+            }
             j++;
         } else if (size < j - i + 1) {
             while(size < j - i + 1) {
@@ -46,11 +91,13 @@ function getLongestSubStringWithoutRepeatingChar(str) {
             j++;
         }
     }
+    console.log("Sub String: " + str.substr(low, high - low + 1));
     return max;
 }
 
-var out = getLongestSubStringWithoutRepeatingChar(str);
+console.log("\n\nSliding Window Approach:");
 console.log(`Input Str: ${str}`);
+var out = getLongestSubStringWithoutRepeatingChar(str);
 console.log(`Output: ${out}`);
 
 // Input Str: ABCDEFGABEF
