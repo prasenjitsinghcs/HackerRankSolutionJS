@@ -32,6 +32,8 @@ function solution(input, output, map) {
 
     // if the input is empty print the output string
     if (input.length === 0) {
+        // if the output is not present in the map then print the output
+        // and push the output in the map
         if (!map[output]) {
             console.log(`"${output}"`);
             map[output] = 1;
