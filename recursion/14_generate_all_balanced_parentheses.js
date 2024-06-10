@@ -28,7 +28,9 @@ function solve(open, close, output) {
 
     if (open > 0) {
         solve(open - 1, close, output + "(");
-    } if (close > open) {
+    } 
+    
+    if (close > open) {
         solve(open, close - 1, output + ")");
     }
 }
