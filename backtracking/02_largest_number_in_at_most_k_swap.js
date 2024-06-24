@@ -18,18 +18,17 @@
  * 1. Create a global variable largest that will store the maximum string or number.
  * 2. Define a recursive function solution and pass num, current index and 
  * the k (number of swaps)
- * 3. Define the base condition if index === num.length - 1 or k == 0 (no swaps left), 
- * then print the largest = max(largest, num[i])
+ * 3. Define the base condition if index === num.length - 1 or k == 0 (no swaps left)
  * 4. Now execute the for loop from i -> index + 1 to num.length 
  * 5. Now cheque for the digit which is max in the range of i -> index + 1 to num.length
- * length of the number, then swap the digit at index with the max digit in range.
- * 6. Now call the recursive function solution(num, index + 1, k - 1)
+ * length of the number, then swap the digit at index with the max digit in range. 
+ * 6. Then print the largest = max(largest, num[i])
+ * 7. Now call the recursive function solution(num, index + 1, k - 1)
+ * 8. Back track by swap the digit at index with the max digit in range
  */
 
 function solution(num, index, k) {
     if (index === num.length - 1 || k === 0) {
-        // console.log(num);
-        largest = Math.max(Number(num.join("")), largest);
         return;
     }
 
@@ -38,6 +37,7 @@ function solution(num, index, k) {
     for (let i = index + 1; i < num.length; i++) {
         if (num[index] < num[i] && num[i] === max) {
             swap(num, i, index);
+            largest = Math.max(Number(num.join("")), largest);
             solution(num, index + 1, k - 1);
             swap(num, i, index);
         }
@@ -66,7 +66,7 @@ let largest = Number(num.join(""));
 
 console.log(`Input: ${largest}`);
 
-solution(num, 0, 2);
+solution(num, 0, 4);
 
 console.log(`Output: ${largest}`);
 
